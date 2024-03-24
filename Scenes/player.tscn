@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://3vyd0cxkfv6e"]
+
+[ext_resource type="Script" path="res://Scripts/CharacterBody3D.gd" id="1_ab0qx"]
+[ext_resource type="Script" path="res://Scripts/RaycastController.gd" id="2_0mwuc"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_v2rlt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_syt0s"]
+albedo_color = Color(0.741176, 0, 0, 0)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_42208"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_en1i2"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.04926, 0.609372, -2.66113)
+script = ExtResource("1_ab0qx")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_v2rlt")
+surface_material_override/0 = SubResource("StandardMaterial3D_syt0s")
+
+[node name="EyesMesh" type="MeshInstance3D" parent="BodyMesh"]
+transform = Transform3D(-1.31134e-08, -0.3, -1.31134e-08, 0, -1.31134e-08, 0.3, -0.3, 1.31134e-08, 5.73206e-16, 0, 0.542871, -0.430233)
+mesh = SubResource("CapsuleMesh_42208")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_en1i2")
+
+[node name="CamOrigin" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.516298, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
+spring_length = 2.0
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.45198)
+
+[node name="RayCast3D" type="RayCast3D" parent="CamOrigin/SpringArm3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.563648, 0)
+target_position = Vector3(0, 1, 5)
+collision_mask = 2
+script = ExtResource("2_0mwuc")

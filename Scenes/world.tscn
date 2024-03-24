@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://cx1wuajch88wm"]
+
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_13wtu"]
+[ext_resource type="PackedScene" uid="uid://iu64dttoeeq8" path="res://Scenes/cell.tscn" id="1_gynir"]
+[ext_resource type="Texture2D" uid="uid://cjjvfjmsselyw" path="res://Assets/Textures/dirt_floor_diff_1k.png" id="2_j2a2y"]
+[ext_resource type="PackedScene" uid="uid://3vyd0cxkfv6e" path="res://Scenes/player.tscn" id="3_sw2uq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjuyj"]
+albedo_texture = ExtResource("2_j2a2y")
+normal_enabled = true
+uv1_scale = Vector3(4, 4, 4)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xxjsl"]
+material = SubResource("StandardMaterial3D_pjuyj")
+size = Vector2(3, 3)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_r2ph5"]
+
+[node name="World" type="Node"]
+script = ExtResource("1_13wtu")
+
+[node name="Floor" type="RigidBody3D" parent="."]
+gravity_scale = 0.0
+freeze = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(13.8655, 0, 0, 0, 1, 0, 0, 0, 12.9506, 0, 0, 0)
+mesh = SubResource("PlaneMesh_xxjsl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_r2ph5")
+
+[node name="Player" parent="." instance=ExtResource("3_sw2uq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.1968, 7.29226, -2.66113)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.214735, 0.976672, 0, -0.976672, 0.214735, 0, 10.2716, 0)
+sky_mode = 1
+
+[node name="Board" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.87875, 0, -6.05837)
+
+[node name="Cell" parent="." instance=ExtResource("1_gynir")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -18.3174, 1.50839, -16.9267)

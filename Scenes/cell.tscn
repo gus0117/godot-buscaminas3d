@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://iu64dttoeeq8"]
+
+[ext_resource type="Script" path="res://Scripts/cell.gd" id="1_i6mvx"]
+[ext_resource type="Material" uid="uid://cqgnrtgn7t0t5" path="res://Assets/Materials/cube_off.tres" id="2_wjq6q"]
+[ext_resource type="Texture2D" uid="uid://dkn62gyryrwqb" path="res://Assets/Textures/mine.png" id="3_hd5oi"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8aijd"]
+material = ExtResource("2_wjq6q")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h8ilg"]
+
+[node name="Cell" type="RigidBody3D" groups=["Cell"]]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+collision_layer = 3
+collision_mask = 3
+freeze = true
+script = ExtResource("1_i6mvx")
+
+[node name="CubeMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_8aijd")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Cell"]]
+shape = SubResource("BoxShape3D_h8ilg")
+
+[node name="Value" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.623663, 0)
+
+[node name="Label3D" type="Label3D" parent="Value"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.106845, 0)
+visible = false
+text = "1"
+font_size = 60
+
+[node name="Sprite3D" type="Sprite3D" parent="Value"]
+transform = Transform3D(2, 0, 0, 0, -8.74228e-08, 2, 0, -2, -8.74228e-08, 0, 0, 0)
+visible = false
+texture = ExtResource("3_hd5oi")
